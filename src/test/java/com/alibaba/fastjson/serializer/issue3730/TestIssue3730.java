@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class TestIssue3730 {
+    /**
+     * @description
+     * @input
+     * @output
+     */
     @Test
     public void testIssue3730() {
         Derived d = new Derived();
@@ -24,12 +29,15 @@ public class TestIssue3730 {
         d = com.alibaba.fastjson.JSON.parseObject(str, Derived.class);
         // System.out.printf(Locale.ENGLISH, "fastjson: %s\n",
         // d.get("k").getClass().getSimpleName());
-        // System.out.printf(Locale.ENGLISH, "fastjson: %s\n", d.get("k").get(0));
+
+        // System.out.printf(Locale.ENGLISH, "fastjson: %s\n",
+        // d.get("k").get(0).getClass());
+
         assertEquals("DAO", castUtil(d, "k").get(0).getClass().getSimpleName());
         System.out.printf(Locale.ENGLISH, "fastjson: %s\n", castUtil(d, "k").get(0).getClass().getSimpleName());
-
     }
 
+    // @description: sotultion: use cast util
     public static List<DAO> castUtil(Derived d, String key) {
         Object data = d.get(key);
         return JSONObject.parseArray(((JSONArray) data).toJSONString(), DAO.class);
