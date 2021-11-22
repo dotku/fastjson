@@ -25,8 +25,9 @@ public class TestIssue3730 {
         // System.out.printf(Locale.ENGLISH, "fastjson: %s\n",
         // d.get("k").getClass().getSimpleName());
         // System.out.printf(Locale.ENGLISH, "fastjson: %s\n", d.get("k").get(0));
-
+        assertEquals("DAO", castUtil(d, "k").get(0).getClass().getSimpleName());
         System.out.printf(Locale.ENGLISH, "fastjson: %s\n", castUtil(d, "k").get(0).getClass().getSimpleName());
+
     }
 
     public static List<DAO> castUtil(Derived d, String key) {
