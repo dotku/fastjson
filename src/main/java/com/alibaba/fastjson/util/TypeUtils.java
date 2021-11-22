@@ -105,8 +105,10 @@ public class TypeUtils {
 
     static {
         try {
-            TypeUtils.compatibleWithJavaBean = "true".equals(IOUtils.getStringProperty(IOUtils.FASTJSON_COMPATIBLEWITHJAVABEAN));
-            TypeUtils.compatibleWithFieldName = "true".equals(IOUtils.getStringProperty(IOUtils.FASTJSON_COMPATIBLEWITHFIELDNAME));
+            TypeUtils.compatibleWithJavaBean = "true"
+                    .equals(IOUtils.getStringProperty(IOUtils.FASTJSON_COMPATIBLEWITHJAVABEAN));
+            TypeUtils.compatibleWithFieldName = "true"
+                    .equals(IOUtils.getStringProperty(IOUtils.FASTJSON_COMPATIBLEWITHFIELDNAME));
         } catch (Throwable e) {
             // skip
         }
@@ -190,23 +192,24 @@ public class TypeUtils {
         return TypeUtils.getAnnotation(clazz, class_XmlAccessorType);
     }
 
-//
-//    public static boolean isXmlAccessType(Class clazz) {
-//        if (class_XmlAccessType == null && !class_XmlAccessType_error) {
-//
-//            try{
-//                class_XmlAccessType = Class.forName("javax.xml.bind.annotation.XmlAccessType");
-//            } catch(Throwable ex){
-//                class_XmlAccessType_error = true;
-//            }
-//        }
-//
-//        if (class_XmlAccessType == null) {
-//            return false;
-//        }
-//
-//        return  class_XmlAccessType.isAssignableFrom(clazz);
-//    }
+    //
+    // public static boolean isXmlAccessType(Class clazz) {
+    // if (class_XmlAccessType == null && !class_XmlAccessType_error) {
+    //
+    // try{
+    // class_XmlAccessType =
+    // Class.forName("javax.xml.bind.annotation.XmlAccessType");
+    // } catch(Throwable ex){
+    // class_XmlAccessType_error = true;
+    // }
+    // }
+    //
+    // if (class_XmlAccessType == null) {
+    // return false;
+    // }
+    //
+    // return class_XmlAccessType.isAssignableFrom(clazz);
+    // }
 
     private static Function<Class, Boolean> isClobFunction = new Function<Class, Boolean>() {
         public Boolean apply(Class clazz) {
@@ -218,6 +221,10 @@ public class TypeUtils {
         Boolean isClob = ModuleUtil.callWhenHasJavaSql(isClobFunction, clazz);
 
         return isClob != null ? isClob : false;
+    }
+
+    public static Class<T> castToClass(Object value) {
+        return <T>;
     }
 
     public static String castToString(Object value) {
@@ -330,8 +337,7 @@ public class TypeUtils {
 
         String strVal = value.toString();
 
-        if (strVal.length() == 0
-                || strVal.equalsIgnoreCase("null")) {
+        if (strVal.length() == 0 || strVal.equalsIgnoreCase("null")) {
             return null;
         }
 
@@ -370,8 +376,7 @@ public class TypeUtils {
 
         String strVal = value.toString();
 
-        if (strVal.length() == 0
-                || strVal.equalsIgnoreCase("null")) {
+        if (strVal.length() == 0 || strVal.equalsIgnoreCase("null")) {
             return null;
         }
 
@@ -493,9 +498,7 @@ public class TypeUtils {
                         format = "yyyy-MM-dd";
                     } else if (len == "yyyy-MM-dd HH:mm:ss".length()) {
                         format = "yyyy-MM-dd HH:mm:ss";
-                    } else if (len == 29
-                            && strVal.charAt(26) == ':'
-                            && strVal.charAt(28) == '0') {
+                    } else if (len == 29 && strVal.charAt(26) == ':' && strVal.charAt(28) == '0') {
                         format = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
                     } else if (len == 23 && strVal.charAt(19) == ',') {
                         format = "yyyy-MM-dd HH:mm:ss,SSS";
@@ -711,42 +714,17 @@ public class TypeUtils {
                     strVal = strVal.substring(0, strVal.length() - 7);
                 }
 
-                if (strVal.length() == 29
-                        && strVal.charAt(4) == '-'
-                        && strVal.charAt(7) == '-'
-                        && strVal.charAt(10) == ' '
-                        && strVal.charAt(13) == ':'
-                        && strVal.charAt(16) == ':'
+                if (strVal.length() == 29 && strVal.charAt(4) == '-' && strVal.charAt(7) == '-'
+                        && strVal.charAt(10) == ' ' && strVal.charAt(13) == ':' && strVal.charAt(16) == ':'
                         && strVal.charAt(19) == '.') {
-                    int year = num(
-                            strVal.charAt(0),
-                            strVal.charAt(1),
-                            strVal.charAt(2),
-                            strVal.charAt(3));
-                    int month = num(
-                            strVal.charAt(5),
-                            strVal.charAt(6));
-                    int day = num(
-                            strVal.charAt(8),
-                            strVal.charAt(9));
-                    int hour = num(
-                            strVal.charAt(11),
-                            strVal.charAt(12));
-                    int minute = num(
-                            strVal.charAt(14),
-                            strVal.charAt(15));
-                    int second = num(
-                            strVal.charAt(17),
-                            strVal.charAt(18));
-                    int nanos = num(
-                            strVal.charAt(20),
-                            strVal.charAt(21),
-                            strVal.charAt(22),
-                            strVal.charAt(23),
-                            strVal.charAt(24),
-                            strVal.charAt(25),
-                            strVal.charAt(26),
-                            strVal.charAt(27),
+                    int year = num(strVal.charAt(0), strVal.charAt(1), strVal.charAt(2), strVal.charAt(3));
+                    int month = num(strVal.charAt(5), strVal.charAt(6));
+                    int day = num(strVal.charAt(8), strVal.charAt(9));
+                    int hour = num(strVal.charAt(11), strVal.charAt(12));
+                    int minute = num(strVal.charAt(14), strVal.charAt(15));
+                    int second = num(strVal.charAt(17), strVal.charAt(18));
+                    int nanos = num(strVal.charAt(20), strVal.charAt(21), strVal.charAt(22), strVal.charAt(23),
+                            strVal.charAt(24), strVal.charAt(25), strVal.charAt(26), strVal.charAt(27),
                             strVal.charAt(28));
                     return new java.sql.Timestamp(year - 1900, month - 1, day, hour, minute, second, nanos);
                 }
@@ -772,66 +750,27 @@ public class TypeUtils {
     }
 
     static int num(char c0, char c1) {
-        if (c0 >= '0'
-                && c0 <= '9'
-                && c1 >= '0'
-                && c1 <= '9'
-        ) {
-            return (c0 - '0') * 10
-                    + (c1 - '0');
+        if (c0 >= '0' && c0 <= '9' && c1 >= '0' && c1 <= '9') {
+            return (c0 - '0') * 10 + (c1 - '0');
         }
 
         return -1;
     }
 
     static int num(char c0, char c1, char c2, char c3) {
-        if (c0 >= '0'
-                && c0 <= '9'
-                && c1 >= '0'
-                && c1 <= '9'
-                && c2 >= '0'
-                && c2 <= '9'
-                && c3 >= '0'
-                && c3 <= '9'
-        ) {
-            return (c0 - '0') * 1000
-                    + (c1 - '0') * 100
-                    + (c2 - '0') * 10
-                    + (c3 - '0');
+        if (c0 >= '0' && c0 <= '9' && c1 >= '0' && c1 <= '9' && c2 >= '0' && c2 <= '9' && c3 >= '0' && c3 <= '9') {
+            return (c0 - '0') * 1000 + (c1 - '0') * 100 + (c2 - '0') * 10 + (c3 - '0');
         }
 
         return -1;
     }
 
     static int num(char c0, char c1, char c2, char c3, char c4, char c5, char c6, char c7, char c8) {
-        if (c0 >= '0'
-                && c0 <= '9'
-                && c1 >= '0'
-                && c1 <= '9'
-                && c2 >= '0'
-                && c2 <= '9'
-                && c3 >= '0'
-                && c3 <= '9'
-                && c4 >= '0'
-                && c4 <= '9'
-                && c5 >= '0'
-                && c5 <= '9'
-                && c6 >= '0'
-                && c6 <= '9'
-                && c7 >= '0'
-                && c7 <= '9'
-                && c8 >= '0'
-                && c8 <= '9'
-        ) {
-            return (c0 - '0') * 100000000
-                    + (c1 - '0') * 10000000
-                    + (c2 - '0') * 1000000
-                    + (c3 - '0') * 100000
-                    + (c4 - '0') * 10000
-                    + (c5 - '0') * 1000
-                    + (c6 - '0') * 100
-                    + (c7 - '0') * 10
-                    + (c8 - '0');
+        if (c0 >= '0' && c0 <= '9' && c1 >= '0' && c1 <= '9' && c2 >= '0' && c2 <= '9' && c3 >= '0' && c3 <= '9'
+                && c4 >= '0' && c4 <= '9' && c5 >= '0' && c5 <= '9' && c6 >= '0' && c6 <= '9' && c7 >= '0' && c7 <= '9'
+                && c8 >= '0' && c8 <= '9') {
+            return (c0 - '0') * 100000000 + (c1 - '0') * 10000000 + (c2 - '0') * 1000000 + (c3 - '0') * 100000
+                    + (c4 - '0') * 10000 + (c5 - '0') * 1000 + (c6 - '0') * 100 + (c7 - '0') * 10 + (c8 - '0');
         }
 
         return -1;
@@ -892,9 +831,7 @@ public class TypeUtils {
 
         if (value instanceof Map) {
             Map map = (Map) value;
-            if (map.size() == 2
-                    && map.containsKey("andIncrement")
-                    && map.containsKey("andDecrement")) {
+            if (map.size() == 2 && map.containsKey("andIncrement") && map.containsKey("andDecrement")) {
                 Iterator iter = map.values().iterator();
                 iter.next();
                 Object value2 = iter.next();
@@ -1001,9 +938,7 @@ public class TypeUtils {
         }
         if (value instanceof Map) {
             Map map = (Map) value;
-            if (map.size() == 2
-                    && map.containsKey("andIncrement")
-                    && map.containsKey("andDecrement")) {
+            if (map.size() == 2 && map.containsKey("andIncrement") && map.containsKey("andDecrement")) {
                 Iterator iter = map.values().iterator();
                 iter.next();
                 Object value2 = iter.next();
@@ -1087,7 +1022,7 @@ public class TypeUtils {
         }
     };
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static <T> T cast(final Object obj, final Class<T> clazz, ParserConfig config) {
         if (obj == null) {
             if (clazz == int.class) {
@@ -1272,7 +1207,7 @@ public class TypeUtils {
         return new Locale(items[0], items[1], items[2]);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static <T> T castToEnum(Object obj, Class<T> clazz, ParserConfig mapping) {
         try {
             if (obj instanceof String) {
@@ -1340,7 +1275,7 @@ public class TypeUtils {
         throw new JSONException("can not cast to : " + type);
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static <T> T cast(Object obj, ParameterizedType type, ParserConfig mapping) {
         Type rawTye = type.getRawType();
 
@@ -1434,9 +1369,7 @@ public class TypeUtils {
             Object entryValue = entry.getValue();
             if (actualTypeArguments.length == 2 && entryValue instanceof Map) {
                 Type valueType = actualTypeArguments[1];
-                entry.setValue(
-                        cast(entryValue, valueType, mapping)
-                );
+                entry.setValue(cast(entryValue, valueType, mapping));
             }
             return (T) entry;
         }
@@ -1456,7 +1389,7 @@ public class TypeUtils {
         throw new JSONException("can not cast to : " + type);
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     public static <T> T castToJavaBean(Map<String, Object> map, Class<T> clazz, ParserConfig config) {
         try {
             if (clazz == StackTraceElement.class) {
@@ -1511,7 +1444,7 @@ public class TypeUtils {
                     return JSON.parseObject(json, clazz);
                 }
                 return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-                        new Class<?>[]{clazz}, object);
+                        new Class<?>[] { clazz }, object);
             }
 
             if (clazz == Locale.class) {
@@ -1571,23 +1504,18 @@ public class TypeUtils {
         }
     }
 
-    private static Function<Map<String, Class<?>>, Void> addBaseClassMappingsFunction =
-            new Function<Map<String, Class<?>>, Void>() {
-                public Void apply(Map<String, Class<?>> mappings) {
-                    Class<?>[] classes = new Class[]{
-                            java.sql.Time.class,
-                            java.sql.Date.class,
-                            java.sql.Timestamp.class
-                    };
-                    for (Class clazz : classes) {
-                        if (clazz == null) {
-                            continue;
-                        }
-                        mappings.put(clazz.getName(), clazz);
-                    }
-                    return null;
+    private static Function<Map<String, Class<?>>, Void> addBaseClassMappingsFunction = new Function<Map<String, Class<?>>, Void>() {
+        public Void apply(Map<String, Class<?>> mappings) {
+            Class<?>[] classes = new Class[] { java.sql.Time.class, java.sql.Date.class, java.sql.Timestamp.class };
+            for (Class clazz : classes) {
+                if (clazz == null) {
+                    continue;
                 }
-            };
+                mappings.put(clazz.getName(), clazz);
+            }
+            return null;
+        }
+    };
 
     static {
         addBaseClassMappings();
@@ -1618,77 +1546,33 @@ public class TypeUtils {
         mappings.put("[D", double[].class);
         mappings.put("[C", char[].class);
         mappings.put("[Z", boolean[].class);
-        Class<?>[] classes = new Class[]{
-                Object.class,
-                java.lang.Cloneable.class,
-                loadClass("java.lang.AutoCloseable"),
-                java.lang.Exception.class,
-                java.lang.RuntimeException.class,
-                java.lang.IllegalAccessError.class,
-                java.lang.IllegalAccessException.class,
-                java.lang.IllegalArgumentException.class,
-                java.lang.IllegalMonitorStateException.class,
-                java.lang.IllegalStateException.class,
-                java.lang.IllegalThreadStateException.class,
-                java.lang.IndexOutOfBoundsException.class,
-                java.lang.InstantiationError.class,
-                java.lang.InstantiationException.class,
-                java.lang.InternalError.class,
-                java.lang.InterruptedException.class,
-                java.lang.LinkageError.class,
-                java.lang.NegativeArraySizeException.class,
-                java.lang.NoClassDefFoundError.class,
-                java.lang.NoSuchFieldError.class,
-                java.lang.NoSuchFieldException.class,
-                java.lang.NoSuchMethodError.class,
-                java.lang.NoSuchMethodException.class,
-                java.lang.NullPointerException.class,
-                java.lang.NumberFormatException.class,
-                java.lang.OutOfMemoryError.class,
-                java.lang.SecurityException.class,
-                java.lang.StackOverflowError.class,
-                java.lang.StringIndexOutOfBoundsException.class,
-                java.lang.TypeNotPresentException.class,
-                java.lang.VerifyError.class,
-                java.lang.StackTraceElement.class,
-                java.util.HashMap.class,
-                java.util.LinkedHashMap.class,
-                java.util.Hashtable.class,
-                java.util.TreeMap.class,
-                java.util.IdentityHashMap.class,
-                java.util.WeakHashMap.class,
-                java.util.LinkedHashMap.class,
-                java.util.HashSet.class,
-                java.util.LinkedHashSet.class,
-                java.util.TreeSet.class,
-                java.util.ArrayList.class,
-                java.util.concurrent.TimeUnit.class,
-                java.util.concurrent.ConcurrentHashMap.class,
-                java.util.concurrent.atomic.AtomicInteger.class,
-                java.util.concurrent.atomic.AtomicLong.class,
-                java.util.Collections.EMPTY_MAP.getClass(),
-                java.lang.Boolean.class,
-                java.lang.Character.class,
-                java.lang.Byte.class,
-                java.lang.Short.class,
-                java.lang.Integer.class,
-                java.lang.Long.class,
-                java.lang.Float.class,
-                java.lang.Double.class,
-                java.lang.Number.class,
-                java.lang.String.class,
-                java.math.BigDecimal.class,
-                java.math.BigInteger.class,
-                java.util.BitSet.class,
-                java.util.Calendar.class,
-                java.util.Date.class,
-                java.util.Locale.class,
-                java.util.UUID.class,
-                java.text.SimpleDateFormat.class,
-                com.alibaba.fastjson.JSONObject.class,
-                com.alibaba.fastjson.JSONPObject.class,
-                com.alibaba.fastjson.JSONArray.class,
-        };
+        Class<?>[] classes = new Class[] { Object.class, java.lang.Cloneable.class,
+                loadClass("java.lang.AutoCloseable"), java.lang.Exception.class, java.lang.RuntimeException.class,
+                java.lang.IllegalAccessError.class, java.lang.IllegalAccessException.class,
+                java.lang.IllegalArgumentException.class, java.lang.IllegalMonitorStateException.class,
+                java.lang.IllegalStateException.class, java.lang.IllegalThreadStateException.class,
+                java.lang.IndexOutOfBoundsException.class, java.lang.InstantiationError.class,
+                java.lang.InstantiationException.class, java.lang.InternalError.class,
+                java.lang.InterruptedException.class, java.lang.LinkageError.class,
+                java.lang.NegativeArraySizeException.class, java.lang.NoClassDefFoundError.class,
+                java.lang.NoSuchFieldError.class, java.lang.NoSuchFieldException.class,
+                java.lang.NoSuchMethodError.class, java.lang.NoSuchMethodException.class,
+                java.lang.NullPointerException.class, java.lang.NumberFormatException.class,
+                java.lang.OutOfMemoryError.class, java.lang.SecurityException.class, java.lang.StackOverflowError.class,
+                java.lang.StringIndexOutOfBoundsException.class, java.lang.TypeNotPresentException.class,
+                java.lang.VerifyError.class, java.lang.StackTraceElement.class, java.util.HashMap.class,
+                java.util.LinkedHashMap.class, java.util.Hashtable.class, java.util.TreeMap.class,
+                java.util.IdentityHashMap.class, java.util.WeakHashMap.class, java.util.LinkedHashMap.class,
+                java.util.HashSet.class, java.util.LinkedHashSet.class, java.util.TreeSet.class,
+                java.util.ArrayList.class, java.util.concurrent.TimeUnit.class,
+                java.util.concurrent.ConcurrentHashMap.class, java.util.concurrent.atomic.AtomicInteger.class,
+                java.util.concurrent.atomic.AtomicLong.class, java.util.Collections.EMPTY_MAP.getClass(),
+                java.lang.Boolean.class, java.lang.Character.class, java.lang.Byte.class, java.lang.Short.class,
+                java.lang.Integer.class, java.lang.Long.class, java.lang.Float.class, java.lang.Double.class,
+                java.lang.Number.class, java.lang.String.class, java.math.BigDecimal.class, java.math.BigInteger.class,
+                java.util.BitSet.class, java.util.Calendar.class, java.util.Date.class, java.util.Locale.class,
+                java.util.UUID.class, java.text.SimpleDateFormat.class, com.alibaba.fastjson.JSONObject.class,
+                com.alibaba.fastjson.JSONPObject.class, com.alibaba.fastjson.JSONArray.class, };
         for (Class clazz : classes) {
             if (clazz == null) {
                 continue;
@@ -1822,9 +1706,8 @@ public class TypeUtils {
             }
 
             features = SerializerFeature.of(jsonType.serialzeFeatures());
-            for (Class<?> supperClass = beanType.getSuperclass()
-                 ; supperClass != null && supperClass != Object.class
-                    ; supperClass = supperClass.getSuperclass()) {
+            for (Class<?> supperClass = beanType.getSuperclass(); supperClass != null
+                    && supperClass != Object.class; supperClass = supperClass.getSuperclass()) {
                 JSONType superJsonType = TypeUtils.getAnnotation(supperClass, JSONType.class);
                 if (superJsonType == null) {
                     break;
@@ -1862,8 +1745,7 @@ public class TypeUtils {
         FieldInfo[] sortedFields;
         List<FieldInfo> sortedFieldList;
         if (orders != null && orders.length != 0) {
-            sortedFieldList = fieldBased
-                    ? computeGettersWithFieldBase(beanType, aliasMap, true, propertyNamingStrategy) //
+            sortedFieldList = fieldBased ? computeGettersWithFieldBase(beanType, aliasMap, true, propertyNamingStrategy) //
                     : computeGetters(beanType, jsonType, aliasMap, fieldCacheMap, true, propertyNamingStrategy);
         } else {
             sortedFieldList = new ArrayList<FieldInfo>(fieldInfoList);
@@ -1877,8 +1759,7 @@ public class TypeUtils {
         return new SerializeBeanInfo(beanType, jsonType, typeName, typeKey, features, fields, sortedFields);
     }
 
-    public static List<FieldInfo> computeGettersWithFieldBase(
-            Class<?> clazz, //
+    public static List<FieldInfo> computeGettersWithFieldBase(Class<?> clazz, //
             Map<String, String> aliasMap, //
             boolean sorted, //
             PropertyNamingStrategy propertyNamingStrategy) {
@@ -1902,11 +1783,11 @@ public class TypeUtils {
     }
 
     public static List<FieldInfo> computeGetters(Class<?> clazz, //
-                                                 JSONType jsonType, //
-                                                 Map<String, String> aliasMap, //
-                                                 Map<String, Field> fieldCacheMap, //
-                                                 boolean sorted, //
-                                                 PropertyNamingStrategy propertyNamingStrategy //
+            JSONType jsonType, //
+            Map<String, String> aliasMap, //
+            Map<String, Field> fieldCacheMap, //
+            boolean sorted, //
+            PropertyNamingStrategy propertyNamingStrategy //
     ) {
         Map<String, FieldInfo> fieldInfoMap = new LinkedHashMap<String, FieldInfo>();
         boolean kotlin = TypeUtils.isKotlin(clazz);
@@ -1934,18 +1815,14 @@ public class TypeUtils {
                 continue;
             }
 
-            if (returnType == ClassLoader.class
-                    || returnType == InputStream.class
-                    || returnType == Reader.class) {
+            if (returnType == ClassLoader.class || returnType == InputStream.class || returnType == Reader.class) {
                 continue;
             }
 
-            if (methodName.equals("getMetaClass")
-                    && returnType.getName().equals("groovy.lang.MetaClass")) {
+            if (methodName.equals("getMetaClass") && returnType.getName().equals("groovy.lang.MetaClass")) {
                 continue;
             }
-            if (methodName.equals("getSuppressed")
-                    && method.getDeclaringClass() == Throwable.class) {
+            if (methodName.equals("getSuppressed") && method.getDeclaringClass() == Throwable.class) {
                 continue;
             }
 
@@ -1953,7 +1830,7 @@ public class TypeUtils {
                 continue;
             }
             /**
-             *  如果在属性或者方法上存在JSONField注解，并且定制了name属性，不以类上的propertyNamingStrategy设置为准，以此字段的JSONField的name定制为准。
+             * 如果在属性或者方法上存在JSONField注解，并且定制了name属性，不以类上的propertyNamingStrategy设置为准，以此字段的JSONField的name定制为准。
              */
             Boolean fieldAnnotationAndNameExists = false;
             JSONField annotation = TypeUtils.getAnnotation(method, JSONField.class);
@@ -2066,7 +1943,7 @@ public class TypeUtils {
                         propertyName = methodName.substring(4);
                         field = ParserConfig.getFieldFromCache(propertyName, fieldCacheMap);
                         if (field == null) {
-                            propertyName = temp; //减少修改代码带来的影响
+                            propertyName = temp; // 减少修改代码带来的影响
                         }
                     }
                 } else if (c3 == 'f') {
@@ -2131,16 +2008,15 @@ public class TypeUtils {
                 if (propertyNamingStrategy != null && !fieldAnnotationAndNameExists) {
                     propertyName = propertyNamingStrategy.translate(propertyName);
                 }
-                FieldInfo fieldInfo = new FieldInfo(propertyName, method, field, clazz, null, ordinal, serialzeFeatures, parserFeatures,
-                        annotation, fieldAnnotation, label);
+                FieldInfo fieldInfo = new FieldInfo(propertyName, method, field, clazz, null, ordinal, serialzeFeatures,
+                        parserFeatures, annotation, fieldAnnotation, label);
                 fieldInfoMap.put(propertyName, fieldInfo);
             }
             if (methodName.startsWith("is")) {
                 if (methodName.length() < 3) {
                     continue;
                 }
-                if (returnType != Boolean.TYPE
-                        && returnType != Boolean.class) {
+                if (returnType != Boolean.TYPE && returnType != Boolean.class) {
                     continue;
                 }
                 char c2 = methodName.charAt(2);
@@ -2218,12 +2094,12 @@ public class TypeUtils {
                 if (propertyNamingStrategy != null) {
                     propertyName = propertyNamingStrategy.translate(propertyName);
                 }
-                //优先选择get
+                // 优先选择get
                 if (fieldInfoMap.containsKey(propertyName)) {
                     continue;
                 }
-                FieldInfo fieldInfo = new FieldInfo(propertyName, method, field, clazz, null, ordinal, serialzeFeatures, parserFeatures,
-                        annotation, fieldAnnotation, label);
+                FieldInfo fieldInfo = new FieldInfo(propertyName, method, field, clazz, null, ordinal, serialzeFeatures,
+                        parserFeatures, annotation, fieldAnnotation, label);
                 fieldInfoMap.put(propertyName, fieldInfo);
             }
         }
@@ -2261,8 +2137,7 @@ public class TypeUtils {
         return fieldInfoList;
     }
 
-    private static void computeFields(
-            Class<?> clazz, //
+    private static void computeFields(Class<?> clazz, //
             Map<String, String> aliasMap, //
             PropertyNamingStrategy propertyNamingStrategy, //
             Map<String, FieldInfo> fieldInfoMap, //
@@ -2299,15 +2174,15 @@ public class TypeUtils {
                 propertyName = propertyNamingStrategy.translate(propertyName);
             }
             if (!fieldInfoMap.containsKey(propertyName)) {
-                FieldInfo fieldInfo = new FieldInfo(propertyName, null, field, clazz, null, ordinal, serialzeFeatures, parserFeatures,
-                        null, fieldAnnotation, label);
+                FieldInfo fieldInfo = new FieldInfo(propertyName, null, field, clazz, null, ordinal, serialzeFeatures,
+                        parserFeatures, null, fieldAnnotation, label);
                 fieldInfoMap.put(propertyName, fieldInfo);
             }
         }
     }
 
     private static String getPropertyNameByCompatibleFieldName(Map<String, Field> fieldCacheMap, String methodName,
-                                                               String propertyName, int fromIdx) {
+            String propertyName, int fromIdx) {
         if (compatibleWithFieldName) {
             if (!fieldCacheMap.containsKey(propertyName)) {
                 String tempPropertyName = methodName.substring(fromIdx);
@@ -2484,10 +2359,8 @@ public class TypeUtils {
             }
 
             char c0, c1;
-            if (fieldName.length() > 2
-                    && (c0 = fieldName.charAt(0)) >= 'a' && c0 <= 'z'
-                    && (c1 = fieldName.charAt(1)) >= 'A' && c1 <= 'Z'
-                    && fieldName.equalsIgnoreCase(itemName)) {
+            if (fieldName.length() > 2 && (c0 = fieldName.charAt(0)) >= 'a' && c0 <= 'z'
+                    && (c1 = fieldName.charAt(1)) >= 'A' && c1 <= 'Z' && fieldName.equalsIgnoreCase(itemName)) {
                 return field;
             }
         }
@@ -2564,8 +2437,7 @@ public class TypeUtils {
     }
 
     private static Type getCollectionItemType(Class<?> clazz) {
-        return clazz.getName().startsWith("java.")
-                ? Object.class
+        return clazz.getName().startsWith("java.") ? Object.class
                 : getCollectionItemType(getCollectionSuperType(clazz));
     }
 
@@ -2602,7 +2474,8 @@ public class TypeUtils {
         return assignable == null ? clazz.getGenericSuperclass() : assignable;
     }
 
-    private static Map<TypeVariable, Type> createActualTypeMap(TypeVariable[] typeParameters, Type[] actualTypeArguments) {
+    private static Map<TypeVariable, Type> createActualTypeMap(TypeVariable[] typeParameters,
+            Type[] actualTypeArguments) {
         int length = typeParameters.length;
         Map<TypeVariable, Type> actualTypeMap = new HashMap<TypeVariable, Type>(length);
         for (int i = 0; i < length; i++) {
@@ -2611,7 +2484,8 @@ public class TypeUtils {
         return actualTypeMap;
     }
 
-    private static ParameterizedType makeParameterizedType(Class<?> rawClass, Type[] typeParameters, Map<TypeVariable, Type> actualTypeMap) {
+    private static ParameterizedType makeParameterizedType(Class<?> rawClass, Type[] typeParameters,
+            Map<TypeVariable, Type> actualTypeMap) {
         int length = typeParameters.length;
         Type[] actualTypeArguments = new Type[length];
         for (int i = 0; i < length; i++) {
@@ -2624,9 +2498,11 @@ public class TypeUtils {
         if (typeParameter instanceof TypeVariable) {
             return actualTypeMap.get(typeParameter);
         } else if (typeParameter instanceof ParameterizedType) {
-            return makeParameterizedType(getRawClass(typeParameter), ((ParameterizedType) typeParameter).getActualTypeArguments(), actualTypeMap);
+            return makeParameterizedType(getRawClass(typeParameter),
+                    ((ParameterizedType) typeParameter).getActualTypeArguments(), actualTypeMap);
         } else if (typeParameter instanceof GenericArrayType) {
-            return new GenericArrayTypeImpl(getActualType(((GenericArrayType) typeParameter).getGenericComponentType(), actualTypeMap));
+            return new GenericArrayTypeImpl(
+                    getActualType(((GenericArrayType) typeParameter).getGenericComponentType(), actualTypeMap));
         }
         return typeParameter;
     }
@@ -2664,16 +2540,18 @@ public class TypeUtils {
         return Object.class;
     }
 
-    private static final Map primitiveTypeMap = new HashMap<Class, String>(8) {{
-        put(boolean.class, "Z");
-        put(char.class, "C");
-        put(byte.class, "B");
-        put(short.class, "S");
-        put(int.class, "I");
-        put(long.class, "J");
-        put(float.class, "F");
-        put(double.class, "D");
-    }};
+    private static final Map primitiveTypeMap = new HashMap<Class, String>(8) {
+        {
+            put(boolean.class, "Z");
+            put(char.class, "C");
+            put(byte.class, "B");
+            put(short.class, "S");
+            put(int.class, "I");
+            put(long.class, "J");
+            put(float.class, "F");
+            put(double.class, "D");
+        }
+    };
 
     public static Type checkPrimitiveArray(GenericArrayType genericArrayType) {
         Type clz = genericArrayType;
@@ -2681,8 +2559,7 @@ public class TypeUtils {
 
         String prefix = "[";
         while (genericComponentType instanceof GenericArrayType) {
-            genericComponentType = ((GenericArrayType) genericComponentType)
-                    .getGenericComponentType();
+            genericComponentType = ((GenericArrayType) genericComponentType).getGenericComponentType();
             prefix += prefix;
         }
 
@@ -2732,7 +2609,7 @@ public class TypeUtils {
         return set;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static Collection createCollection(Type type) {
         Class<?> rawClass = getRawClass(type);
         Collection list;
@@ -2786,14 +2663,16 @@ public class TypeUtils {
         }
     }
 
-    private static final Set<String> isProxyClassNames = new HashSet<String>(6) {{
-        add("net.sf.cglib.proxy.Factory");
-        add("org.springframework.cglib.proxy.Factory");
-        add("javassist.util.proxy.ProxyObject");
-        add("org.apache.ibatis.javassist.util.proxy.ProxyObject");
-        add("org.hibernate.proxy.HibernateProxy");
-        add("org.springframework.context.annotation.ConfigurationClassEnhancer$EnhancedConfiguration");
-    }};
+    private static final Set<String> isProxyClassNames = new HashSet<String>(6) {
+        {
+            add("net.sf.cglib.proxy.Factory");
+            add("org.springframework.cglib.proxy.Factory");
+            add("javassist.util.proxy.ProxyObject");
+            add("org.apache.ibatis.javassist.util.proxy.ProxyObject");
+            add("org.hibernate.proxy.HibernateProxy");
+            add("org.springframework.context.annotation.ConfigurationClassEnhancer$EnhancedConfiguration");
+        }
+    };
 
     public static boolean isProxy(Class<?> clazz) {
 
@@ -2856,7 +2735,8 @@ public class TypeUtils {
                 class_ManyToMany_error = true;
             }
         }
-        return class_ManyToMany != null && (method.isAnnotationPresent(class_OneToMany) || method.isAnnotationPresent(class_ManyToMany));
+        return class_ManyToMany != null
+                && (method.isAnnotationPresent(class_OneToMany) || method.isAnnotationPresent(class_ManyToMany));
 
     }
 
@@ -2922,26 +2802,26 @@ public class TypeUtils {
         }
 
         switch (scale) {
-            case 0:
-                return (double) longValue;
-            case 1:
-                return ((double) longValue) / 10;
-            case 2:
-                return ((double) longValue) / 100;
-            case 3:
-                return ((double) longValue) / 1000;
-            case 4:
-                return ((double) longValue) / 10000;
-            case 5:
-                return ((double) longValue) / 100000;
-            case 6:
-                return ((double) longValue) / 1000000;
-            case 7:
-                return ((double) longValue) / 10000000;
-            case 8:
-                return ((double) longValue) / 100000000;
-            case 9:
-                return ((double) longValue) / 1000000000;
+        case 0:
+            return (double) longValue;
+        case 1:
+            return ((double) longValue) / 10;
+        case 2:
+            return ((double) longValue) / 100;
+        case 3:
+            return ((double) longValue) / 1000;
+        case 4:
+            return ((double) longValue) / 10000;
+        case 5:
+            return ((double) longValue) / 100000;
+        case 6:
+            return ((double) longValue) / 1000000;
+        case 7:
+            return ((double) longValue) / 10000000;
+        case 8:
+            return ((double) longValue) / 100000000;
+        case 9:
+            return ((double) longValue) / 1000000000;
         }
 
         return Double.parseDouble(str);
@@ -2985,26 +2865,26 @@ public class TypeUtils {
         }
 
         switch (scale) {
-            case 0:
-                return (float) longValue;
-            case 1:
-                return ((float) longValue) / 10;
-            case 2:
-                return ((float) longValue) / 100;
-            case 3:
-                return ((float) longValue) / 1000;
-            case 4:
-                return ((float) longValue) / 10000;
-            case 5:
-                return ((float) longValue) / 100000;
-            case 6:
-                return ((float) longValue) / 1000000;
-            case 7:
-                return ((float) longValue) / 10000000;
-            case 8:
-                return ((float) longValue) / 100000000;
-            case 9:
-                return ((float) longValue) / 1000000000;
+        case 0:
+            return (float) longValue;
+        case 1:
+            return ((float) longValue) / 10;
+        case 2:
+            return ((float) longValue) / 100;
+        case 3:
+            return ((float) longValue) / 1000;
+        case 4:
+            return ((float) longValue) / 10000;
+        case 5:
+            return ((float) longValue) / 100000;
+        case 6:
+            return ((float) longValue) / 1000000;
+        case 7:
+            return ((float) longValue) / 10000000;
+        case 8:
+            return ((float) longValue) / 100000000;
+        case 9:
+            return ((float) longValue) / 1000000000;
         }
 
         return Float.parseFloat(str);
@@ -3075,7 +2955,8 @@ public class TypeUtils {
                 continue;
             }
 
-            if (parameterTypes.length > 0 && parameterTypes[parameterTypes.length - 1].getName().equals("kotlin.jvm.internal.DefaultConstructorMarker")) {
+            if (parameterTypes.length > 0 && parameterTypes[parameterTypes.length - 1].getName()
+                    .equals("kotlin.jvm.internal.DefaultConstructorMarker")) {
                 continue;
             }
             if (creatorConstructor != null && creatorConstructor.getParameterTypes().length >= parameterTypes.length) {
@@ -3166,15 +3047,15 @@ public class TypeUtils {
             try {
                 Map<Class, String[]> map = new HashMap<Class, String[]>();
                 Class charRangeClass = Class.forName("kotlin.ranges.CharRange");
-                map.put(charRangeClass, new String[]{"getEndInclusive", "isEmpty"});
+                map.put(charRangeClass, new String[] { "getEndInclusive", "isEmpty" });
                 Class intRangeClass = Class.forName("kotlin.ranges.IntRange");
-                map.put(intRangeClass, new String[]{"getEndInclusive", "isEmpty"});
+                map.put(intRangeClass, new String[] { "getEndInclusive", "isEmpty" });
                 Class longRangeClass = Class.forName("kotlin.ranges.LongRange");
-                map.put(longRangeClass, new String[]{"getEndInclusive", "isEmpty"});
+                map.put(longRangeClass, new String[] { "getEndInclusive", "isEmpty" });
                 Class floatRangeClass = Class.forName("kotlin.ranges.ClosedFloatRange");
-                map.put(floatRangeClass, new String[]{"getEndInclusive", "isEmpty"});
+                map.put(floatRangeClass, new String[] { "getEndInclusive", "isEmpty" });
                 Class doubleRangeClass = Class.forName("kotlin.ranges.ClosedDoubleRange");
-                map.put(doubleRangeClass, new String[]{"getEndInclusive", "isEmpty"});
+                map.put(doubleRangeClass, new String[] { "getEndInclusive", "isEmpty" });
                 kotlinIgnores = map;
             } catch (Throwable error) {
                 kotlinIgnores_error = true;
@@ -3239,8 +3120,8 @@ public class TypeUtils {
             Field mixInField = null;
             String fieldName = field.getName();
             // 递归从MixIn类的父类中查找注解（如果有父类的话）
-            for (Class<?> currClass = mixInClass; currClass != null && currClass != Object.class;
-                 currClass = currClass.getSuperclass()) {
+            for (Class<?> currClass = mixInClass; currClass != null
+                    && currClass != Object.class; currClass = currClass.getSuperclass()) {
                 try {
                     mixInField = currClass.getDeclaredField(fieldName);
                     break;
@@ -3275,8 +3156,8 @@ public class TypeUtils {
             String methodName = method.getName();
             Class<?>[] parameterTypes = method.getParameterTypes();
             // 递归从MixIn类的父类中查找注解（如果有父类的话）
-            for (Class<?> currClass = mixInClass; currClass != null && currClass != Object.class;
-                 currClass = currClass.getSuperclass()) {
+            for (Class<?> currClass = mixInClass; currClass != null
+                    && currClass != Object.class; currClass = currClass.getSuperclass()) {
                 try {
                     mixInMethod = currClass.getDeclaredMethod(methodName, parameterTypes);
                     break;
@@ -3311,8 +3192,8 @@ public class TypeUtils {
             String methodName = method.getName();
             Class<?>[] parameterTypes = method.getParameterTypes();
             // 递归从MixIn类的父类中查找注解（如果有父类的话）
-            for (Class<?> currClass = mixInClass; currClass != null && currClass != Object.class;
-                 currClass = currClass.getSuperclass()) {
+            for (Class<?> currClass = mixInClass; currClass != null
+                    && currClass != Object.class; currClass = currClass.getSuperclass()) {
                 try {
                     mixInMethod = currClass.getDeclaredMethod(methodName, parameterTypes);
                     break;
@@ -3347,13 +3228,14 @@ public class TypeUtils {
             Class<?>[] parameterTypes = constructor.getParameterTypes();
             // 构建参数列表，因为内部类的构造函数需要传入外部类的引用
             List<Class<?>> enclosingClasses = new ArrayList<Class<?>>(2);
-            for (Class<?> enclosingClass = mixInClass.getEnclosingClass(); enclosingClass != null; enclosingClass = enclosingClass.getEnclosingClass()) {
+            for (Class<?> enclosingClass = mixInClass
+                    .getEnclosingClass(); enclosingClass != null; enclosingClass = enclosingClass.getEnclosingClass()) {
                 enclosingClasses.add(enclosingClass);
             }
             int level = enclosingClasses.size();
             // 递归从MixIn类的父类中查找注解（如果有父类的话）
-            for (Class<?> currClass = mixInClass; currClass != null && currClass != Object.class;
-                 currClass = currClass.getSuperclass()) {
+            for (Class<?> currClass = mixInClass; currClass != null
+                    && currClass != Object.class; currClass = currClass.getSuperclass()) {
                 try {
                     if (level != 0) {
                         Class<?>[] outerClassAndParameterTypes = new Class[level + parameterTypes.length];
@@ -3388,7 +3270,8 @@ public class TypeUtils {
 
         if (class_JacksonCreator == null && !class_JacksonCreator_error) {
             try {
-                class_JacksonCreator = (Class<? extends Annotation>) Class.forName("com.fasterxml.jackson.annotation.JsonCreator");
+                class_JacksonCreator = (Class<? extends Annotation>) Class
+                        .forName("com.fasterxml.jackson.annotation.JsonCreator");
             } catch (Throwable e) {
                 // skip
                 class_JacksonCreator_error = true;
